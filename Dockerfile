@@ -35,6 +35,11 @@ RUN composer clear-cache
 # Installer les dépendances PHP avec Composer
 RUN composer install --optimize-autoloader --no-dev
 
+# Après l'installation de Node.js, ajoutez :
+RUN npm install -D tailwindcss postcss autoprefixer
+RUN npx tailwindcss init -p
+
+
 # Installer les dépendances npm et compiler les assets
 RUN npm install
 RUN npm run build
