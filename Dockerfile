@@ -1,6 +1,10 @@
 # Utiliser une image PHP avec FPM
 FROM php:8.2-fpm
 
+# Installer Node.js et npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
 # Installer les dépendances système et les extensions PHP requises par Laravel
 RUN apt-get update && apt-get install -y \
     libzip-dev \
@@ -31,6 +35,10 @@ RUN composer clear-cache
 # Installer les dépendances PHP avec Composer
 RUN composer install --optimize-autoloader --no-dev
 
+# Installer les dépendances npm et compiler les assets
+RUN npm install
+RUN npm run build
+
 # Générer la clé d'application
 RUN php artisan key:generate
 
@@ -44,7 +52,8 @@ RUN chmod 777 /var/www/html/database/database.sqlite
 # Changer les permissions des dossiers importants
 RUN chown -R www-data:www-data /var/www/html/storage \
     /var/www/html/bootstrap/cache \
-    /var/www/html/database
+    /var/www/html/database \
+    /var/www/html/public/build
 
 # Optimiser Laravel
 RUN php artisan config:cache
