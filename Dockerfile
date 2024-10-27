@@ -1,11 +1,12 @@
-# Utiliser une image PHP avec les extensions nécessaires
+# Utiliser une image PHP avec FPM
 FROM php:8.1-fpm
 
-# Installer les dépendances
+# Installer les dépendances et SQLite
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     unzip \
+    libsqlite3-dev \
     && docker-php-ext-install zip pdo_sqlite
 
 # Installer Composer
@@ -20,8 +21,8 @@ WORKDIR /var/www/html
 # Installer les dépendances PHP
 RUN composer install --optimize-autoloader --no-dev
 
-# Changer les permissions du dossier storage
-RUN chown -R www-data:www-data /var/www/html/storage
+# Changer les permissions du dossier storage et cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Exposer le port 80
 EXPOSE 80
