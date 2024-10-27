@@ -28,6 +28,10 @@ RUN composer clear-cache
 # Installer les dépendances PHP avec Composer
 RUN composer install --optimize-autoloader --no-dev
 
+#ajouter une base de données
+RUN touch /var/www/html/database/database.sqlite
+
+
 # Changer les permissions du dossier storage et cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
