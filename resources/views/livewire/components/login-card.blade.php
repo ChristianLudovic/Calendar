@@ -7,5 +7,5 @@
         <p class="leading-[130%] text-md">Please enter your credentials to access your account</p>
     </div>
     
-    <button wire:click="redirectToProvider('google')" class=" text-sm py-3 w-full text-center bg-white text-black rounded-md text-sm font-semibold">Connexion with Google</button>
+    <button wire:click="redirectToProvider('google')" class=" text-sm py-3 w-full text-center bg-white text-[#0F131D] rounded-md text-sm font-semibold">Connexion with Google</button>
 </div>

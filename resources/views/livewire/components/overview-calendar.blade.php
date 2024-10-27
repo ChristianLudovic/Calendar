@@ -2,28 +2,34 @@
     <div class="overflow-x-auto custom-scrollbar">
         <div class="flex space-x-6 pb-2">
             @foreach(['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'] as $index => $month)
-                <div class="space-y-2">
-                    <h2 class="text-[#6A696A] text-md font-medium">{{ $month }}</h2>
-                    <div class="flex items-center">
-                        @php 
-                            $monthData = $birthdaysByMonth[$index + 1] ?? ['avatars' => collect(), 'count' => 0];
-                            $avatars = $monthData['avatars'];
-                            $count = $monthData['count'];
-                        @endphp
-                        @foreach($avatars as $avatarId)
-                            <div class="w-9 h-9 rounded-full {{ $loop->first ? '' : '-ml-4' }}">
-                                <img src="/{{ $avatarId }}.svg" alt="{{ $avatarId }}" class="w-9 h-9 rounded-full">
+                <div 
+                    @click="showCalendar = true; 
+                            $wire.dispatch('set-month', { monthNumber: {{ $index + 1 }} })"
+                    class="cursor-pointer">
+                        <div class="space-y-2">
+                            <h2 class="text-[#797B80] text-md font-medium">{{ $month }}</h2>
+                            <div class="flex items-center">
+                                @php 
+                                    $monthData = $birthdaysByMonth[$index + 1] ?? ['avatars' => collect(), 'count' => 0];
+                                    $avatars = $monthData['avatars'];
+                                    $count = $monthData['count'];
+                                @endphp
+                                @foreach($avatars as $avatarId)
+                                    <div class="w-9 h-9 rounded-full {{ $loop->first ? '' : '-ml-4' }}">
+                                        <img src="/{{ $avatarId }}.svg" alt="{{ $avatarId }}" class="w-9 h-9 rounded-full">
+                                    </div>
+                                @endforeach
+                                @if($count > 3 || $avatars->isEmpty())
+                                    <div class="flex items-center justify-center w-9 h-9 rounded-full bg-[#0F131D] {{ $avatars->isNotEmpty() ? '-ml-4' : '' }}">
+                                        <span class="text-sm font-semibold">
+                                            {{ $avatars->isEmpty() ? '0' : '+' . ($count - 3) }}
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
-                        @endforeach
-                        @if($count > 3 || $avatars->isEmpty())
-                            <div class="flex items-center justify-center w-9 h-9 rounded-full bg-[#161618] {{ $avatars->isNotEmpty() ? '-ml-4' : '' }}">
-                                <span class="text-sm font-semibold">
-                                    {{ $avatars->isEmpty() ? '0' : '+' . ($count - 3) }}
-                                </span>
-                            </div>
-                        @endif
-                    </div>
+                        </div>
                 </div>
+                
             @endforeach
         </div>
     </div>
@@ -36,7 +42,7 @@
 
         .custom-scrollbar-container {
             position: relative;
-            padding-bottom: 20px; 
+            padding-bottom: 30px; 
         }
 
     </style>

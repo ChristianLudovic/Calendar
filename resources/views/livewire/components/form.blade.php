@@ -1,6 +1,6 @@
 <div x-data="{ isOpen: @entangle('isOpen') }">
     <button @click="isOpen = true" class="cursor-pointer">
-        <div class="flex items-center justify-center p-2 rounded-full bg-white ">
+        <div class="flex items-center justify-center p-2 rounded-full bg-[#DDFB24] ">
             <svg class="vuesax-outline-add2" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19.5 13.8125H6.5C6.05583 13.8125 5.6875 13.4442 5.6875 13C5.6875 12.5558 6.05583 12.1875 6.5 12.1875H19.5C19.9442 12.1875 20.3125 12.5558 20.3125 13C20.3125 13.4442 19.9442 13.8125 19.5 13.8125Z" fill="#161618" />
                 <path d="M13 20.3125C12.5558 20.3125 12.1875 19.9442 12.1875 19.5V6.5C12.1875 6.05583 12.5558 5.6875 13 5.6875C13.4442 5.6875 13.8125 6.05583 13.8125 6.5V19.5C13.8125 19.9442 13.4442 20.3125 13 20.3125Z" fill="#161618" />
@@ -17,9 +17,9 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0">
-        <div class="fixed inset-0 bg-black bg-opacity-85"></div>
+        <div class="fixed inset-0 bg-[#0F131D] bg-opacity-85"></div>
         
-        <div class="bg-[#161618] rounded-[20px] max-w-sm w-full space-y-4 relative py-8 px-8 z-10">
+        <div class="bg-[#0A0E17] rounded-[20px] max-w-sm w-full space-y-4 relative py-8 px-8 z-10">
             <div class="space-y-1">
                 <h2 class="text-xl font-medium tracking-[0.7px]">New birth date</h2>
                
@@ -27,7 +27,7 @@
             <div class="space-y-4">
                 <div class="space-y-1">
                     <label for="name" class="text-sm">Name</label>
-                    <input type="text" id="name" wire:model="name" autocomplete="off" class="w-full rounded-lg bg-transparent p-3 border border-solid border-stone-600 text-sm">
+                    <input type="text" id="name" wire:model="name" autocomplete="off" class="w-full rounded-lg bg-transparent p-3 border border-solid border-[#1F242F] text-sm">
                 </div>
                 <div>
                     <div x-data="dateInput()" class="space-y-1">
@@ -40,7 +40,7 @@
                             x-on:blur="formatDate"
                             wire:model="birthDate"
                             placeholder="jj-mm-aaaa"
-                            class="w-full rounded-lg bg-transparent p-3 border border-solid border-stone-600 text-sm"
+                            class="w-full rounded-lg bg-transparent p-3 border border-solid border-[#1F242F] text-sm"
                             maxlength="10" 
                             autocomplete="off"
                         >
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="pt-6">
-                <button wire:click="addPerson" class="py-2 w-full text-center bg-white text-black rounded-md text-sm font-semibold">Add</button>
+                <button wire:click="addPerson" class="py-[10px] w-full text-center bg-[#DDFB24] text-[#0F131D] rounded-md text-sm font-semibold">Add</button>
             </div>
             <button @click="isOpen = false" class="absolute top-8 right-8 cursor-pointer">
                 <svg class="close" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
