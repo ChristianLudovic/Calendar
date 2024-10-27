@@ -22,21 +22,44 @@ COPY . /var/www/html
 # Changer le répertoire de travail
 WORKDIR /var/www/html
 
+# Créer le fichier .env à partir de .env.example
+RUN cp .env.example .env
+
 # Supprimer le cache de Composer
 RUN composer clear-cache
 
 # Installer les dépendances PHP avec Composer
 RUN composer install --optimize-autoloader --no-dev
 
-#ajouter une base de données
+# Générer la clé d'application
+RUN php artisan key:generate
+
+# Créer le dossier database s'il n'existe pas
+RUN mkdir -p /var/www/html/database
+
+# Créer et configurer la base de données SQLite
 RUN touch /var/www/html/database/database.sqlite
+RUN chmod 777 /var/www/html/database/database.sqlite
 
+# Changer les permissions des dossiers importants
+RUN chown -R www-data:www-data /var/www/html/storage \
+    /var/www/html/bootstrap/cache \
+    /var/www/html/database
 
-# Changer les permissions du dossier storage et cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Optimiser Laravel
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+# Exécuter les migrations
+RUN php artisan migrate --force
 
 # Exposer le port 80
 EXPOSE 80
 
-# Commande pour démarrer le serveur PHP
-CMD php artisan serve --host=0.0.0.0 --port=80
+# Créer un script d'entrée
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Utiliser le script d'entrée
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
