@@ -53,11 +53,18 @@ RUN mkdir -p /var/www/html/database
 RUN touch /var/www/html/database/database.sqlite
 RUN chmod 777 /var/www/html/database/database.sqlite
 
-# Optimisations Laravel
-RUN php artisan config:clear
-RUN php artisan cache:clear
+# Exécuter les migrations d'abord
+RUN php artisan migrate --force
+
+# Créer la table de cache si nécessaire
+RUN php artisan cache:table
+RUN php artisan migrate --force
+
+# Maintenant les optimisations Laravel
 RUN php artisan view:clear
 RUN php artisan route:clear
+RUN php artisan config:clear
+RUN php artisan cache:clear
 RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
