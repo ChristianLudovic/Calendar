@@ -21,12 +21,14 @@
                     <img src="/logo.svg" alt="Logo" class="w-40">
                 </div>
                 <form action="{{ route('auth.redirect', ['provider' => 'google']) }}" method="GET" class="inline">
-                    @csrf
                     <button 
                         type="submit"
                         class="flex items-center justify-center px-3 py-2 rounded-md bg-white text-black font-semibold"
-                    >Get started now</button>
+                    >
+                        Get started now
+                    </button>
                 </form>
+
             </header>
             <div>
                 <h1 class="max-w-[935px] text-[70px] font-semibold leading-[100px]">Your <span class="text-black px-1 py-2 bg-[#DDFB24]">Moments,</span> Your Memories, Your <span class="text-black px-1 py-2 bg-[#DDFB24]">Calendar.</span></h1>
