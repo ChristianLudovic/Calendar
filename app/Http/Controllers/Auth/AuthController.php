@@ -13,13 +13,13 @@ class AuthController extends Controller
 {
     public function redirectToProvider($provider)
     {
-        return Socialite::driver($provider)->stateless()->redirect();;
+        return Socialite::driver($provider)->redirect();;
     }
 
     public function handleProviderCallback($provider)
     {
         
-        $socialUser = Socialite::driver($provider)->stateless()->user();
+        $socialUser = Socialite::driver($provider)->user();
 
         $user = User::updateOrCreate([
             'email' => $socialUser->getEmail(),
