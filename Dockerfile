@@ -56,9 +56,6 @@ RUN chmod 777 /var/www/html/database/database.sqlite
 # Exécuter les migrations d'abord
 RUN php artisan migrate --force
 
-# Créer la table de cache si nécessaire
-RUN php artisan cache:table
-RUN php artisan migrate --force
 
 # Maintenant les optimisations Laravel
 RUN php artisan view:clear
