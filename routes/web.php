@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function (){
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/auth/{provider}', [IndexController::class, 'redirectToProvider'])->name('auth.redirect');
-    Route::get('/login/{provider}', [AuthController::class, 'redirectToProvider'])->name('socialite.redirect');
     Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
 });
 

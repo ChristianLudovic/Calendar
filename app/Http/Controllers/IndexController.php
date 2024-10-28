@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function redirectToProvider($provider)
     {
-        return redirect()->route('socialite.redirect', ['provider' => $provider]);
+        return redirect()->route('auth.redirect', ['provider' => $provider]);
     }
     public function index()
     {
